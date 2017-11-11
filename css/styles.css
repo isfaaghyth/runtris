@@ -1,0 +1,40 @@
+#screen {
+  width:986px;
+  height:500px;
+  background:lightgrey;
+  position:absolute;
+  bottom:0;
+  padding-left:4px;
+}
+#land {
+  position:absolute;
+  bottom:0;
+}
+.block {
+  width:20px;
+  height:20px;
+  background:grey;
+  border: 1px solid grey;
+  margin-right:2px;
+  margin-top:2px;
+}
+.block-empty {
+  background:none !important;
+  border: 1px solid grey !important;
+  
+}
+.block-person, .block-person-right, .block-person-up {
+  background:url("../images/person-right.png") !important;
+  border: 0px solid blue !important;
+}
+.block-person-left {
+  background:url("../images/person-left.png") !important;
+  border: 0px solid blue !important;
+}
+.block-person-dead {
+  background:url("../images/person-dead.png") !important;
+  border: 0px solid red !important;
+}
+.landblock {
+  display:inline-block;
+}
