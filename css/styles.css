@@ -14,13 +14,13 @@
   width:20px;
   height:20px;
   background:grey;
-  border: 1px solid grey;
+  border: 0px solid grey;
   margin-right:2px;
   margin-top:2px;
 }
 .block-empty {
   background:none !important;
-  border: 1px solid grey !important;
+  border: 0px solid lightgrey !important;
   
 }
 .block-person, .block-person-right, .block-person-up {
