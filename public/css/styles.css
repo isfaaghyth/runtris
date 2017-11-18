@@ -1,10 +1,26 @@
+body {
+}
+h2 {
+  text-align:center;
+}
+.centered {
+  text-align:center;
+}
+.hidden {
+  display:none !important;
+}
+#context {
+  width:100%;
+}
 #screen {
   width:986px;
   height:500px;
   background:lightgrey;
-  position:absolute;
-  bottom:0;
+  position:relative;
+  /*position:absolute;*/
+  /*bottom:0;*/
   padding-left:4px;
+  margin:0 auto;
 }
 #land {
   position:absolute;
