@@ -242,7 +242,6 @@ function p1HandleKeys(e) {
 }
 var landLoop;
 var startGame = function(){
-/*
   landLoop = setInterval(function(){
     matrix.shift();
     matrix.push([0]);
@@ -251,8 +250,9 @@ var startGame = function(){
     console.log('p1 : ' + p1);
     render();
   }, 1000);
-*/
+/*
   render();
+*/
 }
   
 //render();
@@ -285,12 +285,12 @@ socket.on('teammateJoined', function(newSession){
     alert('Your teammate have been joined : ' + session.p2.id);
     inSessionDiv.textContent = 'SessionId : ' + session.sessionId + '. P1 : ' + session.p1.id + '. P2 : ' + session.p2.id + '. Ready!';
     inSessionDiv.className = '';
+    startGame();
   } else {
     noSessionDiv.className += 'hidden';
     alert('You\'ve been  joined with : ' + session.p1.id);
     inSessionDiv.textContent = 'SessionId : ' + session.sessionId + '. P2 : ' + session.p2.id + '. P1 : ' + session.p1.id + '. Ready!';
     inSessionDiv.className = '';
   }
-  startGame();
 })
  
