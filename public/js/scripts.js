@@ -5,6 +5,7 @@ window.session = {};
 window.p1 = [4,1];
 window.p2 = [0,0];
 window.currentTetro = -1;
+window.currentTetroRotate = 0;
 window.matrixP1 = [
   [1,1,1],
   [1,1,1],
@@ -78,6 +79,7 @@ window.tetrominos = [
 var getNewTetro = function(){
  var ran = Math.floor(Math.random() * (5 - 1 + 1));
   currentTetro = ran;
+  currentTetroRotate = 0;
   var tetro = tetrominos[ran];
   for (var i in tetro) {
     for (var j in tetro[i]) {
@@ -152,6 +154,69 @@ var tetroMoveDown = function(){
     render();
     getNewTetro();
   }
+}
+
+var rotateClockwise = function(matrix) {
+  // reverse the rows
+  matrix = matrix.reverse();
+  // swap the symmetric elements
+  for (var i = 0; i < matrix.length; i++) {
+    for (var j = 0; j < i; j++) {
+      var temp = matrix[i][j];
+      matrix[i][j] = matrix[j][i];
+      matrix[j][i] = temp;
+    }
+  }
+};
+
+var tetroRotate = function(){
+  if (currentTetro == 1 || currentTetro == 0) {
+    return;
+  }
+  if (currentTetroRotate == 3) {
+    currentTetroRotate = 0;
+  } else {
+    currentTetroRotate++;
+  }
+  console.log(p2);
+  var bottom = false;
+  if (p2[1] == 1) {
+    bottom = true;
+  }
+  var currentMatrix = [
+  ];
+  for (var i=0; i < 5; i++) {
+    for (var j=0; j < 5; j++) {
+      if (!currentMatrix[i]) {
+        currentMatrix.push([]);
+      }
+      currentMatrix[i][j] = matrixP2[p2[0]-1+i][p2[1]-1+j] || 0;
+    }
+  } 
+  console.log(JSON.stringify(currentMatrix));
+  rotateClockwise(currentMatrix);
+  console.log(JSON.stringify(currentMatrix));
+  var verticalMargin = 1;
+  var horizontalMargin = 0;
+  for (var i in currentMatrix[1]) {
+    if(currentMatrix[1][i] > 0) {
+      var verticalMargin = 0;
+    }
+  }
+  for (var i=0; i < 5; i++) {
+    for (var j=0; j < 5; j++) {
+      matrixP2[p2[0]-1-verticalMargin+i][p2[1]-1-horizontalMargin+j] = currentMatrix[i][j];
+    }
+  } 
+  window.p2 = [p2[0],p2[1]-1];
+  console.log("p2 : " + window.p2);
+  renderTetris();
+  if (bottom) {
+    render();
+    getNewTetro();
+  }
+  /*
+  */
 }
 
 
@@ -275,6 +340,8 @@ function p2HandleKeys(e) {
     tetroMoveLeft();
   } else if (e.keyCode == '39') {
     //tetroMoveRight();
+  } else if (e.keyCode == '38') {
+    tetroRotate();
   }
 }
 function p1HandleKeys(e) {
@@ -430,10 +497,10 @@ var startGame = function(){
 }
 /*
 startGame();
-*/
 document.onkeydown = p2HandleKeys;
-getNewTetro();
-  
+tetroMoveDown();
+*/
+
 //render();
 // Socket events
 socket.on('render', function(p, mtx, p1, lastAct) { // player, currentMatrix, playerPosition, lastAction
@@ -477,7 +544,7 @@ socket.on('teammateJoined', function(newSession){
     alert('You\'ve been  joined with : ' + session.p1.id);
     inSessionDiv.textContent = 'SessionId : ' + session.sessionId + '. P2 : ' + session.p2.id + '. P1 : ' + session.p1.id + '. Ready!';
     inSessionDiv.className = '';
-    //getNewTetro();
+    getNewTetro();
     startGame();
   }
 })
