@@ -14,7 +14,7 @@ h2 {
 }
 #screen {
   width:986px;
-  height:500px;
+  height:482px;
   background:lightgrey;
   position:relative;
   /*position:absolute;*/
@@ -25,6 +25,13 @@ h2 {
 #land {
   position:absolute;
   bottom:0;
+}
+#tetriscreen {
+  position:absolute;
+  bottom:0;
+  width:500px;
+  margin-left:483px;
+  border-left:1px red solid;
 }
 .block {
   width:20px;
